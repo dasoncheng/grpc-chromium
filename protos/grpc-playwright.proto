@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service GrpcPlaywright {
+  rpc Html2Pdf(Html2PdfRequest) returns (Html2PdfResponse) {}
+}
+
+message Html2PdfRequest {
+  string url = 1;
+}
+
+message Html2PdfResponse {
+  bytes pdf = 1;
+}

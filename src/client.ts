@@ -1,7 +1,7 @@
 import { writeFile } from "fs/promises";
 import { credentials } from "@grpc/grpc-js";
-import { Html2PdfRequest } from "../packages/grpc/grpc-playwright_pb";
-import { GrpcPlaywrightClient } from "../packages/grpc/grpc-playwright_grpc_pb";
+import { Html2PdfRequest } from "../packages/grpc/grpc-chromium_pb";
+import { GrpcPlaywrightClient } from "../packages/grpc/grpc-chromium_grpc_pb";
 
 async function application() {
   await Promise.resolve();

@@ -1,5 +1,5 @@
 {
-  "name": "grpc-playwright",
+  "name": "grpc-chromium",
   "version": "0.0.1",
   "description": "",
   "main": "dist/main.js",

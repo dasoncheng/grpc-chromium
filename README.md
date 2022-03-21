@@ -1,3 +1,3 @@
-# grpc-playwright
+# grpc-chromium
 
 html to pdf

@@ -1,6 +1,6 @@
 import { Server, ServerCredentials } from "@grpc/grpc-js";
-import services from "../packages/grpc/grpc-playwright_grpc_pb";
-import { html2Pdf } from "./services/grpc-playwright";
+import services from "../packages/grpc/grpc-chromium_grpc_pb";
+import { html2Pdf } from "./services/grpc-chromium";
 
 async function application() {
   await Promise.resolve();

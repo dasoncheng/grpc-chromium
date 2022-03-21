@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-service GrpcPlaywright {
+service GrpcChromium {
   rpc Html2Pdf(Html2PdfRequest) returns (Html2PdfResponse) {}
 }
 

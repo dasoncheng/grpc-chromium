@@ -9,8 +9,9 @@ export async function GetPDF(url: string) {
   const page = await browser.newPage();
   console.log("goto");
   await page.goto(url);
-  console.log("pdf");
+  await page.waitForLoadState("networkidle");
   await page.waitForTimeout(2000);
+  console.log("pdf");
   await page.emulateMedia({ media: "screen" });
   const buf = await page.pdf({
     format: "A4",

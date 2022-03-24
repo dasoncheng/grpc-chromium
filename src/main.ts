@@ -1,12 +1,25 @@
-import { Server, ServerCredentials } from "@grpc/grpc-js";
+import { Server, ServerCredentials, ServerUnaryCall, sendUnaryData } from "@grpc/grpc-js";
+import { Html2PdfRequest, Html2PdfResponse } from "../packages/grpc/grpc-chromium_pb";
 import { GrpcChromiumService } from "../packages/grpc/grpc-chromium_grpc_pb";
-import { html2Pdf } from "./services/grpc-chromium";
+import { InitPlayWright } from "./utils/playwright";
 
 async function application() {
-  await Promise.resolve();
+  const playwright = await InitPlayWright();
   const server = new Server();
   server.addService(GrpcChromiumService, {
-    html2Pdf,
+    html2Pdf: async (
+      call: ServerUnaryCall<Html2PdfRequest, Html2PdfResponse>,
+      callback: sendUnaryData<Html2PdfResponse>
+    ) => {
+      try {
+        const reply = new Html2PdfResponse();
+        const buf = await playwright.GetPDF(call.request.getUrl());
+        reply.setPdf(buf);
+        callback(null, reply);
+      } catch (error) {
+        callback(new Error("PDF生成失败"));
+      }
+    },
   });
   server.bindAsync("0.0.0.0:3000", ServerCredentials.createInsecure(), (err, port) => {
     if (err) {

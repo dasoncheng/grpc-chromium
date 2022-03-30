@@ -1,4 +1,5 @@
 import { Server, ServerCredentials, ServerUnaryCall, sendUnaryData } from "@grpc/grpc-js";
+import { Status } from "@grpc/grpc-js/build/src/constants";
 import { Html2PdfRequest, Html2PdfResponse } from "../packages/grpc/grpc-chromium_pb";
 import { GrpcChromiumService } from "../packages/grpc/grpc-chromium_grpc_pb";
 import { InitPlayWright } from "./utils/playwright";
@@ -17,7 +18,11 @@ async function application() {
         reply.setPdf(buf);
         callback(null, reply);
       } catch (error) {
-        callback(new Error("PDF生成失败"));
+        console.log(error);
+        callback({
+          code: Status.FAILED_PRECONDITION,
+          details: "PDF生成失败",
+        });
       }
     },
   });

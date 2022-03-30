@@ -8,25 +8,49 @@ class Playwright {
 
   async GetPDF(url: string) {
     console.log("newPage");
+    console.time("newPage");
     const page = await this.browser.newPage();
-    console.log("goto");
-    await page.goto(url);
-    await page.waitForTimeout(600);
-    await page.waitForLoadState("networkidle");
-    await page.waitForTimeout(2400);
-    console.log("pdf");
-    await page.emulateMedia({ media: "screen" });
-    const buf = await page.pdf({
-      format: "A4",
-      margin: {
-        top: 80,
-        bottom: 80,
-      },
-    });
-    console.log("close");
-    await page.close();
-    console.log("return");
-    return buf;
+    page.setDefaultTimeout(1000 * 60 * 10);
+    console.timeEnd("newPage");
+    try {
+      console.log("goto");
+      console.time("goto");
+      await page.goto(url);
+      console.timeEnd("goto");
+
+      // console.log("waitForTimeout:prev");
+      // console.time("waitForTimeout:prev");
+      // await page.waitForTimeout(600);
+      // console.timeEnd("waitForTimeout:prev");
+
+      console.log("networkidle");
+      console.time("networkidle");
+      await page.waitForLoadState("networkidle");
+      console.timeEnd("networkidle");
+
+      console.log("waitForTimeout:next");
+      console.time("waitForTimeout:next");
+      await page.waitForTimeout(2400);
+      console.timeEnd("waitForTimeout:next");
+
+      console.log("pdf");
+      console.time("pdf");
+      await page.emulateMedia({ media: "screen" });
+      const buf = await page.pdf({
+        format: "A4",
+        margin: {
+          top: 80,
+          bottom: 80,
+        },
+      });
+      console.timeEnd("pdf");
+
+      await page.close();
+      return buf;
+    } catch (error) {
+      await page.close();
+      throw error;
+    }
   }
 }
 

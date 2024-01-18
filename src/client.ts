@@ -8,6 +8,8 @@ async function application() {
   const client = new GrpcChromiumClient("123.60.73.159:3001", credentials.createInsecure());
   const request = new Html2PdfRequest();
   request.setUrl("https://baidu.com");
+  // 有页面跳转或重定向时，设置location.pathname的匹配字符串
+  // request.setPathname("pathname");
   console.time("pdf");
   client.html2Pdf(request, (err, res) => {
     if (err) {

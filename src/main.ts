@@ -14,7 +14,7 @@ async function application() {
     ) => {
       try {
         const reply = new Html2PdfResponse();
-        const buf = await playwright.GetPDF(call.request.getUrl());
+        const buf = await playwright.GetPDF(call.request.getUrl(), call.request.getPathname());
         reply.setPdf(buf);
         callback(null, reply);
       } catch (error) {

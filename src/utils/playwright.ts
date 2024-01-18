@@ -6,7 +6,7 @@ class Playwright {
     this.browser = browser;
   }
 
-  async GetPDF(url: string) {
+  async GetPDF(url: string, pathname?: string) {
     console.log("newPage");
     console.time("newPage");
     const page = await this.browser.newPage();
@@ -18,10 +18,14 @@ class Playwright {
       await page.goto(url);
       console.timeEnd("goto");
 
-      // console.log("waitForTimeout:prev");
-      // console.time("waitForTimeout:prev");
-      // await page.waitForTimeout(600);
-      // console.timeEnd("waitForTimeout:prev");
+      if (typeof pathname === "string" && pathname.length > 0) {
+        console.log("waitForURL");
+        console.time("waitForURL");
+        await page.waitForURL((currentURL) => {
+          return currentURL.pathname.includes(pathname);
+        });
+        console.timeEnd("waitForURL");
+      }
 
       console.log("networkidle");
       console.time("networkidle");

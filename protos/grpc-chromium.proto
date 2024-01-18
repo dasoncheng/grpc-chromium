@@ -6,6 +6,7 @@ service GrpcChromium {
 
 message Html2PdfRequest {
   string url = 1;
+  string pathname = 2;
 }
 
 message Html2PdfResponse {

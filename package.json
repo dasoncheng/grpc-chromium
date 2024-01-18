@@ -37,9 +37,5 @@
     "@grpc/grpc-js": "^1.9.14",
     "google-protobuf": "^3.21.2",
     "playwright": "^1.41.0"
-  },
-  "engines": {
-    "node": "20.9.0",
-    "pnpm": "8.14.0"
   }
 }

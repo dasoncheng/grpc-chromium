@@ -7,6 +7,7 @@ service GrpcChromium {
 message Html2PdfRequest {
   string url = 1;
   string pathname = 2;
+  int32 timeout = 3;
 }
 
 message Html2PdfResponse {

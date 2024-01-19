@@ -1,16 +1,17 @@
 import { type Browser, chromium } from "playwright";
 
 class Playwright {
+  timeout = 600;
   browser: Browser;
   constructor(browser: Browser) {
     this.browser = browser;
   }
 
-  async GetPDF(url: string, pathname?: string) {
+  async GetPDF(url: string, pathname: string, timeout: number) {
     console.log("newPage");
     console.time("newPage");
     const page = await this.browser.newPage();
-    page.setDefaultTimeout(1000 * 60 * 10);
+    page.setDefaultTimeout(1000 * (timeout ?? this.timeout));
     console.timeEnd("newPage");
     try {
       console.log("goto");

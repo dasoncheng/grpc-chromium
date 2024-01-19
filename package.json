@@ -25,6 +25,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
+    "clang-format": "^1.8.0",
     "eslint": "^8.56.0",
     "grpc-tools": "^1.12.4",
     "grpc_tools_node_protoc_ts": "^5.3.3",

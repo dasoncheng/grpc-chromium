@@ -5,11 +5,13 @@ import { GrpcChromiumClient } from "../packages/grpc/grpc-chromium_grpc_pb";
 
 async function application() {
   await Promise.resolve();
-  const client = new GrpcChromiumClient("123.60.73.159:3001", credentials.createInsecure());
+  const client = new GrpcChromiumClient("localhost:3000", credentials.createInsecure());
   const request = new Html2PdfRequest();
   request.setUrl("https://baidu.com");
   // 有页面跳转或重定向时，设置location.pathname的匹配字符串
   // request.setPathname("pathname");
+  // 设置页面超时时间，单位秒，默认600秒（10分钟）
+  // request.setTimeout(1200);
   console.time("pdf");
   client.html2Pdf(request, (err, res) => {
     if (err) {

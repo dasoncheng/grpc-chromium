@@ -10,11 +10,15 @@ async function application() {
   server.addService(GrpcChromiumService, {
     html2Pdf: async (
       call: ServerUnaryCall<Html2PdfRequest, Html2PdfResponse>,
-      callback: sendUnaryData<Html2PdfResponse>
+      callback: sendUnaryData<Html2PdfResponse>,
     ) => {
       try {
         const reply = new Html2PdfResponse();
-        const buf = await playwright.GetPDF(call.request.getUrl(), call.request.getPathname());
+        const buf = await playwright.GetPDF(
+          call.request.getUrl(),
+          call.request.getPathname(),
+          call.request.getTimeout(),
+        );
         reply.setPdf(buf);
         callback(null, reply);
       } catch (error) {

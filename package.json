@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "main": "dist/main.js",
+  "type": "commonjs",
   "directories": {
     "doc": "docs"
   },
@@ -35,8 +36,9 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.9.14",
+    "@grpc/grpc-js": "^1.10.6",
     "google-protobuf": "^3.21.2",
+    "nanoid": "^3.3.7",
     "playwright": "^1.41.0"
   }
 }

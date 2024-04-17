@@ -1,4 +1,5 @@
 import { type Browser, chromium } from "playwright";
+import { nanoid } from "nanoid";
 
 class Playwright {
   timeout = 600;
@@ -8,38 +9,39 @@ class Playwright {
   }
 
   async GetPDF(url: string, pathname: string, timeout: number) {
-    console.log("newPage");
-    console.time("newPage");
+    const CurrentID = nanoid();
+    console.log(`newPage-${CurrentID}`);
+    console.time(`newPage-${CurrentID}`);
     const page = await this.browser.newPage();
     page.setDefaultTimeout(1000 * (timeout ?? this.timeout));
-    console.timeEnd("newPage");
+    console.timeEnd(`newPage-${CurrentID}`);
     try {
-      console.log("goto");
-      console.time("goto");
+      console.log(`goto-${CurrentID}`);
+      console.time(`goto-${CurrentID}`);
       await page.goto(url);
-      console.timeEnd("goto");
+      console.timeEnd(`goto-${CurrentID}`);
 
       if (typeof pathname === "string" && pathname.length > 0) {
-        console.log("waitForURL");
-        console.time("waitForURL");
+        console.log(`waitForURL-${CurrentID}`);
+        console.time(`waitForURL-${CurrentID}`);
         await page.waitForURL((currentURL) => {
           return currentURL.pathname.includes(pathname);
         });
-        console.timeEnd("waitForURL");
+        console.timeEnd(`waitForURL-${CurrentID}`);
       }
 
-      console.log("networkidle");
-      console.time("networkidle");
+      console.log(`networkidle-${CurrentID}`);
+      console.time(`networkidle-${CurrentID}`);
       await page.waitForLoadState("networkidle");
-      console.timeEnd("networkidle");
+      console.timeEnd(`networkidle-${CurrentID}`);
 
-      console.log("waitForTimeout:next");
-      console.time("waitForTimeout:next");
+      console.log(`waitForTimeout:next-${CurrentID}`);
+      console.time(`waitForTimeout:next-${CurrentID}`);
       await page.waitForTimeout(2400);
-      console.timeEnd("waitForTimeout:next");
+      console.timeEnd(`waitForTimeout:next-${CurrentID}`);
 
-      console.log("pdf");
-      console.time("pdf");
+      console.log(`pdf-${CurrentID}`);
+      console.time(`pdf-${CurrentID}`);
       await page.emulateMedia({ media: "screen" });
       const buf = await page.pdf({
         format: "A4",
@@ -48,7 +50,7 @@ class Playwright {
           bottom: 80,
         },
       });
-      console.timeEnd("pdf");
+      console.timeEnd(`pdf-${CurrentID}`);
 
       await page.close();
       return buf;

@@ -3,6 +3,7 @@ import { Status } from "@grpc/grpc-js/build/src/constants";
 import { Html2PdfRequest, Html2PdfResponse } from "../packages/grpc/grpc-chromium_pb";
 import { GrpcChromiumService } from "../packages/grpc/grpc-chromium_grpc_pb";
 import { InitPlayWright } from "./utils/playwright";
+import { clearAndSave } from "./utils/cache";
 
 async function application() {
   const playwright = await InitPlayWright();
@@ -19,6 +20,7 @@ async function application() {
           call.request.getPathname(),
           call.request.getTimeout(),
         );
+        await clearAndSave(buf);
         reply.setPdf(buf);
         callback(null, reply);
       } catch (error) {
@@ -30,12 +32,11 @@ async function application() {
       }
     },
   });
-  server.bindAsync("0.0.0.0:3000", ServerCredentials.createInsecure(), (err, port) => {
+  server.bindAsync("0.0.0.0:8923", ServerCredentials.createInsecure(), (err, port) => {
     if (err) {
       console.log("bindAsync: ", err);
       return;
     }
-    server.start();
     console.log("start at: ", port);
   });
 }

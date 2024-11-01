@@ -28,8 +28,8 @@
     "@typescript-eslint/parser": "^6.19.0",
     "clang-format": "^1.8.0",
     "eslint": "^8.56.0",
-    "grpc-tools": "^1.12.4",
     "grpc_tools_node_protoc_ts": "^5.3.3",
+    "grpc-tools": "^1.12.4",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
     "prettier": "^3.2.4",
@@ -39,6 +39,6 @@
     "@grpc/grpc-js": "^1.10.6",
     "google-protobuf": "^3.21.2",
     "nanoid": "^3.3.7",
-    "playwright": "^1.41.0"
+    "playwright": "^1.46.1"
   }
 }
